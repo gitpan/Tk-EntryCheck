@@ -1,4 +1,4 @@
-Tk-EntryCheck version 0.01
+Tk-EntryCheck version 0.02
 ==========================
 
 Since I sometimes develop Perl/Tk-Applications, I often need to check
@@ -44,12 +44,8 @@ Tk >= 8.0
 
 COPYRIGHT AND LICENCE
 
-Put the correct copyright and licence information here.
-
-Copyright (C) 2004 by Martin Fabiani
-
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.8.3 or,
 at your option, any later version of Perl 5 you may have available.
 
-
+Copyright (C) 2004 by Martin Fabiani

@@ -1,21 +1,21 @@
-package Tk::Widget;
-#use warnings; # removed to be backward compatible with perl5.005_03
+package Tk::EntryCheck;
+use warnings; # removed to be backward compatible with perl5.005_03
 use strict;
 use 5.005;
-use Tk::Entry;
 use Carp;
 
 use vars qw($VERSION);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 
-#------------------------------------------------------------
-sub EntryCheck {
-    my ($parent, %parameters) = @_;
+use base qw(Tk::Derived Tk::Entry);
+Construct Tk::Widget 'EntryCheck';
 
-    # extract own parameters
-    my $maxlength = delete $parameters{-maxlength};
-    my $pattern   = delete $parameters{-pattern};
+sub Populate {
+    my ($self, $args) = @_;
+
+    my $maxlength = delete $args->{-maxlength};
+    my $pattern   = delete $args->{-pattern};
 
     if ($maxlength =~ /\D/) {
 	&Carp::carp("-maxlength is defined, but not numeric: '$maxlength'");
@@ -24,13 +24,35 @@ sub EntryCheck {
 	&Carp::carp("-maxlength must be a positive integer: '$maxlength'");
     } # elsif
 
-    # create a standard entry
-    my $entry = $parent->Entry
-	(-validate => 'all',
-	 -validatecommand => [ \&_EntryCheckValidate, $pattern, $maxlength ],
-	 %parameters);
-    return $entry;
-} # EntryCheck
+    $self->configure
+      (-validate => 'all',
+       -validatecommand => [ \&_EntryCheckValidate, $pattern, $maxlength ] );
+
+    return $self;
+} # Populate
+
+#------------------------------------------------------------
+# sub EntryCheck {
+#     my ($parent, %parameters) = @_;
+
+#     # extract own parameters
+#     my $maxlength = delete $parameters{-maxlength};
+#     my $pattern   = delete $parameters{-pattern};
+
+#     if ($maxlength =~ /\D/) {
+# 	&Carp::carp("-maxlength is defined, but not numeric: '$maxlength'");
+#     } # if
+#     elsif ($maxlength =~ /\d/ and $maxlength < 1) {
+# 	&Carp::carp("-maxlength must be a positive integer: '$maxlength'");
+#     } # elsif
+
+#     # create a standard entry
+#     my $entry = $parent->Entry
+# 	(-validate => 'all',
+# 	 -validatecommand => [ \&_EntryCheckValidate, $pattern, $maxlength ],
+# 	 %parameters);
+#     return $entry;
+# } # EntryCheck
 # ------------------------------------------------------------
 sub _EntryCheckValidate {
     my ($pattern, $maxlength, $text, $textNew, $textOld, $pos, $mode) = @_;
