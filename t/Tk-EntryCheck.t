@@ -17,15 +17,18 @@ use Tk::EntryCheck;
 # Insert your test code below, the Test::More module is use()ed here so read
 # its man page ( perldoc Test::More ) for help writing this test script.
 
-warn "\nOne windnow will pop up now...\n";
+warn "\nOne window will pop up now...\n";
 my $mw = MainWindow->new();
 my $okCount = "";
 my $textVar = 123;
+my $textVar2 = 999;
 my $entry = $mw->EntryCheck( -textvariable => \$textVar,
-			     -maxlength => 5, 
+			     -maxlength => 5,
 			     -pattern => qr(\d),
 			     )
-    ->pack(-side => 'left');
+    ->pack(-side => 'top');
+my $entry2 = $mw->EntryCheck( -textvariable => \$textVar2 )
+   ->pack(-side => 'top');
 
 $mw->after(1000, \&State1);
 # Tk::after
@@ -53,6 +56,11 @@ sub State1 {
     $mw->update();
     $textVar = 30.0;      $okCount .= " ok" if $textVar == 30;
     $mw->update();
+
+    $textVar2 = "";       $okCount .= " ok" if $textVar eq "";
+    $mw->update();
+    $textVar2 = "abcde";  $okCount .= " ok" if $textVar eq "abcde";
+
 
     $mw->after(1000, \&Finish);
 } # State1

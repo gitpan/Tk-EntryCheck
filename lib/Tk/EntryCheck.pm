@@ -6,21 +6,22 @@ use Carp;
 
 use vars qw($VERSION);
 
-$VERSION = '0.02';
+$VERSION = '0.03';
 
 use base qw(Tk::Derived Tk::Entry);
 Construct Tk::Widget 'EntryCheck';
-
+# ------------------------------------------------------------
 sub Populate {
     my ($self, $args) = @_;
 
     my $maxlength = delete $args->{-maxlength};
     my $pattern   = delete $args->{-pattern};
 
-    if ($maxlength =~ /\D/) {
+
+    if (defined $maxlength and $maxlength =~ /\D/) {
 	&Carp::carp("-maxlength is defined, but not numeric: '$maxlength'");
     } # if
-    elsif ($maxlength =~ /\d/ and $maxlength < 1) {
+    elsif (defined $maxlength and $maxlength =~ /\d/ and $maxlength < 1) {
 	&Carp::carp("-maxlength must be a positive integer: '$maxlength'");
     } # elsif
 
@@ -30,29 +31,6 @@ sub Populate {
 
     return $self;
 } # Populate
-
-#------------------------------------------------------------
-# sub EntryCheck {
-#     my ($parent, %parameters) = @_;
-
-#     # extract own parameters
-#     my $maxlength = delete $parameters{-maxlength};
-#     my $pattern   = delete $parameters{-pattern};
-
-#     if ($maxlength =~ /\D/) {
-# 	&Carp::carp("-maxlength is defined, but not numeric: '$maxlength'");
-#     } # if
-#     elsif ($maxlength =~ /\d/ and $maxlength < 1) {
-# 	&Carp::carp("-maxlength must be a positive integer: '$maxlength'");
-#     } # elsif
-
-#     # create a standard entry
-#     my $entry = $parent->Entry
-# 	(-validate => 'all',
-# 	 -validatecommand => [ \&_EntryCheckValidate, $pattern, $maxlength ],
-# 	 %parameters);
-#     return $entry;
-# } # EntryCheck
 # ------------------------------------------------------------
 sub _EntryCheckValidate {
     my ($pattern, $maxlength, $text, $textNew, $textOld, $pos, $mode) = @_;

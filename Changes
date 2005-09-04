@@ -7,5 +7,5 @@ Revision history for Perl extension Tk::EntryCheck.
 0.02  Thu Oct  21 14:18:17 2004
        - changed to inherit from Tk::Entry by Tk::Derived
 
-
-
+0.03  Sun Sep  4 10:27:00 2005
+       - removed uninitialized value warning if used exactly as Tk::Entry

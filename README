@@ -1,4 +1,4 @@
-Tk-EntryCheck version 0.02
+Tk-EntryCheck version 0.03
 ==========================
 
 Since I sometimes develop Perl/Tk-Applications, I often need to check
@@ -39,7 +39,7 @@ DEPENDENCIES
 
 This module requires these other modules and libraries:
 
-Perl >= 5.005
+Perl >= 5.5
 Tk >= 8.0
 
 COPYRIGHT AND LICENCE
@@ -48,4 +48,4 @@ This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.8.3 or,
 at your option, any later version of Perl 5 you may have available.
 
-Copyright (C) 2004 by Martin Fabiani
+Copyright (C) 2005 by Martin Fabiani
