@@ -1,7 +1,10 @@
-Changes
+CHANGES
 Makefile.PL
 MANIFEST
 README
-t/Tk-EntryCheck.t
+META.yml
+t/01_Tk-EntryCheck.t
+t/02_Tk-EntryCheck.t
 lib/Tk/EntryCheck.pm
-META.yml                                 Module meta-data (added by MakeMaker)
+example/test-configure.pl
+

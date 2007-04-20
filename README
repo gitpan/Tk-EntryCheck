@@ -1,4 +1,4 @@
-Tk-EntryCheck version 0.03
+Tk-EntryCheck version 0.04
 ==========================
 
 Since I sometimes develop Perl/Tk-Applications, I often need to check
@@ -30,22 +30,26 @@ INSTALLATION
 
 To install this module type the following:
 
-   perl Makefile.PL
-   make
-   make test
-   make install
+  perl Makefile.PL
+  make
+  make test
+  make install
 
 DEPENDENCIES
 
 This module requires these other modules and libraries:
 
-Perl >= 5.5
-Tk >= 8.0
+  Perl >= 5.5
+  Tk >= 8.0
 
 COPYRIGHT AND LICENCE
 
+Put the correct copyright and licence information here.
+
+Copyright (C) 2006 by Martin Fabiani
+
 This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself, either Perl version 5.8.3 or,
+it under the same terms as Perl itself, either Perl version 5.8.8 or,
 at your option, any later version of Perl 5 you may have available.
 
-Copyright (C) 2005 by Martin Fabiani
+

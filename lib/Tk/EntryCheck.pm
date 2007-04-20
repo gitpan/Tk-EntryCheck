@@ -4,36 +4,57 @@ use strict;
 use 5.005;
 use Carp;
 
-use vars qw($VERSION);
+use vars qw( $VERSION );
 
-$VERSION = '0.03';
+$VERSION = '0.04';
 
-use base qw(Tk::Derived Tk::Entry);
+use base qw( Tk::Derived Tk::Entry );
 Construct Tk::Widget 'EntryCheck';
 # ------------------------------------------------------------
+sub ClassInit {
+    my( $class, $parent ) = @_;
+
+    # class bindings here
+
+    $class->SUPER::ClassInit( $parent );
+} # ClassInit
+# ------------------------------------------------------------
 sub Populate {
-    my ($self, $args) = @_;
+    my( $self, $args ) = @_;
 
-    my $maxlength = delete $args->{-maxlength};
-    my $pattern   = delete $args->{-pattern};
+    $self->SUPER::Populate( $args );
 
+    $self->ConfigSpecs
+        (
+         -maxlength => [ 'PASSIVE', 'maxlength', undef, $args->{-maxlength} ],
+         -pattern   => [ 'PASSIVE', 'pattern'  , undef, qr/./ ],
+#         -totalpattern => [ 'PASSIVE', 'totalPattern', undef, qr/./ ],
+     );
 
-    if (defined $maxlength and $maxlength =~ /\D/) {
-	&Carp::carp("-maxlength is defined, but not numeric: '$maxlength'");
+    my $maxLength = $args->{-maxlength};
+    if( defined $maxLength ) {
+        if( $maxLength =~ /\D/ ) {
+            Carp::carp( "-maxlength not numeric: '$maxLength'" );
+        } # if
+        elsif( $maxLength =~ /^\d+/ and $maxLength < 1 ) {
+            Carp::carp( "-maxlength must be int > 0: '$maxLength'" );
+        } # elsif
     } # if
-    elsif (defined $maxlength and $maxlength =~ /\d/ and $maxlength < 1) {
-	&Carp::carp("-maxlength must be a positive integer: '$maxlength'");
-    } # elsif
 
     $self->configure
-      (-validate => 'all',
-       -validatecommand => [ \&_EntryCheckValidate, $pattern, $maxlength ] );
+        (
+         -validate => 'all',
+         -validatecommand => [ \&_EntryCheckValidate, $self ],
+     );
 
     return $self;
 } # Populate
 # ------------------------------------------------------------
 sub _EntryCheckValidate {
-    my ($pattern, $maxlength, $text, $textNew, $textOld, $pos, $mode) = @_;
+    my ($self, $text, $textNew, $textOld, $pos, $mode) = @_;
+
+    my $maxlength = $self->{Configure}->{-maxlength};
+    my $pattern   = $self->{Configure}->{-pattern};
 
     # check if -maxlength is reached
     if (defined $maxlength and length($text) > $maxlength) {
@@ -183,6 +204,5 @@ Copyright (C) 2004 by Martin Fabiani
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.8.3 or,
 at your option, any later version of Perl 5 you may have available.
-
 
 =cut
